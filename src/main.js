@@ -9,14 +9,12 @@ import App from './App.vue'
 
 import router from "./router"
 
-console.log(router)
+// console.log(router)
 
-createApp(App).use(router).use(ElementPlus).mount('#app')
-
-
+const app = createApp(App).use(router).use(ElementPlus)
 
 
-
+app.mount('#app')
 
 
 
@@ -24,6 +22,8 @@ createApp(App).use(router).use(ElementPlus).mount('#app')
 
 
 
-console.log(createApp(App))
+
+
+console.log("app", app)
 // console.log(createApp(App).use(router))
 // console.log(createApp(App).use(router).mount('#app'))

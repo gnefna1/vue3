@@ -1,6 +1,4 @@
 <template>
-  <!-- <div class=""> -->
-  <h5 @click="changeTitle">{{ title }}</h5>
   <el-input
     v-model="condition.customer"
     placeholder="用户"
@@ -82,7 +80,7 @@
 import useCheck from "../util/asyncValidatMinix.js";
 import axios from "../util/initAxios";
 import useBase from "../util/baseMinix";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 export default {
   // mixins: [base, afeiCheck],
 
@@ -92,7 +90,8 @@ export default {
     let { condition, list, total, size, current, queryClick, sizeChange } =
       useBase(getList);
     function getList() {
-      // console.log("condition.customer", condition.customer);
+      // condition.a = "a";
+      // console.log(condition);
       axios
         .post("/free/order/queryOrder", {
           condition: condition,
@@ -113,10 +112,22 @@ export default {
 
     const title = ref("title");
     const changeTitle = () => {
-      title.value = title.value.split("").reverse().join();
+      // condition.a = condition.a === 123 ? "a" : 123;
+      title.value = title.value.split("").reverse().join("");
+      changeTest();
     };
 
+    let test = reactive({
+      a: "a",
+      title: "title",
+    });
+
+    function changeTest() {
+      test = { a: 1, title: 123 };
+    }
+
     return {
+      test,
       title,
       getList,
       changeTitle,
@@ -142,9 +153,11 @@ export default {
       tableHeight: window.innerHeight * 0.7,
     };
   },
-  // created() {
-  //   this.getList();
-  // },
+  mounted() {
+    const { title } = this.$options.setup();
+    title.value = "asdfasdfa";
+    console.log(title);
+  },
   methods: {
     addRowOrUpdate(row) {
       if (row.id) {
